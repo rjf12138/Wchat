@@ -1,0 +1,32 @@
+服务端处理的消息类型                                                            服务端返回给客户端的消息类型
+SEND_MSG_TO_FRIEND(用户发送消息给好友)                                          SEND_MSG_TO_FRIEND(只根据消息的接受者账号进行转发)
+SEND_MSG_TO_GROUP_MEMBERS(群里的用户向群中发送消息)                              SEND_MSG_TO_GROUP_MEMBERS(将消息发送给该群中的所有成员)
+REQUEST_JOIN_THE_GROUP(发送加群的请求)                                          REQUEST_JOIN_THE_GROUP(将消息发给该群的管理员)
+REQUEST_BE_FRIEND(发送加好友的请求)                                             REQUEST_BE_FRIEND(将消息发送给要加的好友)
+
+以上消息由 msg_handler 处理， 服务端在这里主要是起转发的作用, 下面的消息由 server_task 处理，会涉及到 io 方面的操作
+
+SIGN_UP(用户申请一个账号)                                                      SIGN_UP_SUCCESSED(用户申请账号成功)
+SIGN_IN(用户登录)                                                             SIGN_IN_SUCCESSED(通知用户登录成功)
+                                                                            SERVER_SEND_USER_INFO(服务端向用户发送用户账号信息)
+                                                                            SERVER_SEND_USER_FRIENDS_INFO(服务端向用户发送用户好友账号的信息(如果用户有好友的话))
+                                                                            SERVER_SEND_USER_JOINED_GROUPS_INFO(服务端向用户发送用户所加入的群的信息(如果用户加入群的话))
+                                                                            SERVER_SEND_USER_MANAGER_GROUPS_INFO(服务端向用户发送用户所管理的群的信息(如果用户有成为群管理员的话))
+
+SIGN_OUT(用户登出)                                                          （服务端不发任何消息）
+CREATE_NEW_GROUP（用户发送创建群的请求）                                        CREATE_NEW_GROUP_SUCCESSED（创建群成功的消息）
+                                                                            SERVER_SEND_USER_JOINED_GROUPS_INFO（服务端向用户发送用户所加入的群的信息（管理员自动加入这个新创建的群））
+                                                                            SERVER_SEND_USER_MANAGER_GROUPS_INFO(服务端向用户发送用户所管理的群的信息)
+GROUP_MANAGER_RESPONE_JOIN_GROUP_REQUEST_AGREE(群管理员回复加群请求:成功)       SERVER_NOTIFY_USER_THE_RESULT_OF_JOIN_GROUP_REQUEST_SUCCESSED(服务端通知用户加群成功)
+GROUP_MANAGER_RESPONE_JOIN_GROUP_REQUEST_DISAGREE(群管理员回复加群请求:失败)    SERVER_NOTIFY_USER_THE_RESULT_OF_JOIN_GROUP_REQUEST_FAILED（服务端通知用户加群失败）
+
+USER_RESPONE_FRIEND_REQUEST_AGREE(请求加好友成功)                             SERVER_NOTIFY_USER_THE_RESULT_OF_BE_FRIEND_REQUEST_SUCCESSED（服务端通知用户请求好友成功）
+USER_RESPONE_FRIEND_REQUEST_DISAGREE(请求加好友失败)                          SERVER_NOTIFY_USER_THE_RESULT_OF_BE_FRIEND_REQUEST_FAILED（服务端通知用户请求好友失败）
+
+USER_QUIT_FROM_GROUP(用户退出群组)                                            SERVER_NOTIFY_GORUP_THE_RESULT_OF_MOVED_MEMBER（服务端通知群管理员有群成员退出群）
+REMOVE_A_FRIEND（用户取消好友关系）                                            SERVER_NOTIFY_USER_THE_RESULT_OF_REMOVE_FRIEND（该消息会发送两条，分别是取消好友关系的两个用户）
+GROUP_MANAGER_REMOVE_A_MEMBER（群管理员移除一个群成员）                         SERVER_NOTIFY_GORUP_THE_RESULT_OF_MOVED_MEMBER(该消息会发送两条，一条是通知被移除的用户，一条是通知该群的管理员)
+REMOVE_A_GROUP（从服务端中解散一个群组）                                        REMOVE_A_GROUP_SUCCESSED（该信息是发送给群管理员的）
+                                                                            USER_QUIT_FROM_GROUP（这条信息是发送给所有群成员的）
+REQUEST_USER_INFO(请求用户的信息)                                             SERVER_SEND_USER_INFO（发送给用户信息的请求者）
+REQUEST_GROUP_INFO（请求群组的信息）                                           SERVER_SEND_GROUP_INFO(发送给群信息的请求者)

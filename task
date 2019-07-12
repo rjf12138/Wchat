@@ -1,0 +1,54 @@
+2018-11-22: 继续测试sqlite3各个函数
+2018-11-23: 完成对sqlite3_wrapper的测试 （各个类成员函数测试通过）
+goal:       构思如何管理在线用户, 是否要在线维护群组。 之后封装管理在线用户的类和sqlite_wrapper类以对外提供统一的接口 。
+2018-11-27: 用std::map管理在线用户信息， 对于群组目前打算将所有信息加载到内存中， 用户在线加入心跳。
+2018-12-02: 完成在线用户管理类, 下次对该类进行测试。
+2018-12-03: 完成在线用户管理类的测试。
+goal:       完成群组的管理， 处理网络通信。
+goal:       移除 online_user.cc, 统一使用 user_manager 和 group_manager 管理用户和群组的数据
+2018-12-04: 完成 user_manager.h
+2018-12-05: 发现sqlite_wrapper的一些问题， 需要实现从数据库中获取所有用户和所有群组信息的成员函数。
+2018-12-06: 修复sqlite_wrapper的一些问题， 继续完成用户管理和群组管理
+2018-12-07: 继续完成在线用户管理， 剩余一些 add_new_user, add_friend_to_user, sync_all_user_info
+            需要完成。
+2018-12-10: 1. 移除了 sync_all_user_info， 因为在添加用户时应该同时将其同步到数据库中去而不是之后找时间同步。
+            2. 创建账号需要记录当前可用账号的最小值， 需要写入到配置文件中因此最好在生成一个 json 文件用于保存账号。
+            3. 目前测试发现单例类在结束时，析构函数并未被调用。
+2018-12-11: 完成了 account_manager 但是该类还存在一些问题比如如何知道 account.json 文件的位置
+            继续实现user_manager, group_manager
+            修改剩余的单例类， 在析构函数中释放单例分配的内存是个错误的选择
+task 文件编写格式（goal: 是要进行的工作短期， error： 是发现了的错误需修复， finish： 是已经完成的工作, day task: 每日任务）
+
+2019-01-04 finish： 完成了单例类的修改由原来的静态指针该为局部的静态变量。
+           goal: 完成 user_manager 和 group_manager , 移除 online_user。
+2019-01-15 error: manager_group 无法获取插入的数据
+2019-01-17 finish: 完成 user_manager 和 group_manager , 移除 online_user。
+            goal:   在服务端实现一个消息存储结构， 为未上线的用户保存消息。
+                    实现一个服务端任务处理功能，能单独的完成一些任务类似于加好友， 加群之类的请求。
+           error: 修复 msg_buffer_test.cc 段错误
+2019-01-19 finish: 在服务端实现一个消息存储结构， 为未上线的用户保存消息。
+           goal: 实现一个服务端任务处理功能，能单独的完成一些任务类似于加好友， 加群之类的请求。
+                需要加入能统一获取所有好友用户名，还有群用户信息
+2019-01-24 finish: 类 ServerTask 完成
+           goal: 对 ServerTask 进行测试， 实现 消息处理
+           day task: 完成 msg_handle_test.cc
+2019-02-11 finish: 完成 msg_handle_test 测试
+           goal: 实现个简易的用于模拟服务端运行的程序， 使用 libevent 来接收数据
+           day_task: 使 msg_transmission_test.cc 编译通过
+2019-02-24 finish: 使 msg_transmission_test 编译通过了
+          goal: 按照信号处理的方式重新编写 msg_transmission 以便更好的使用回调函数。
+                按照目前的协议搭建完整个服务器, 修复一些因为类变动而产生的 bug
+          day_task: 完成数据发送时能根据账号找到对应的 bufferevent
+          day_task: 玩成 thread_pool
+          day_task: 完成 wchat_server.cc 并使其编译通过
+          day_task: 完善整个服务端程序以便能更好的进行测试， 写一个能模拟多个客户端的程序
+          day_task: 使用 log4cxx 替换 glog, 调试 log4cxx, 并在代码中替换 glog
+          finish_day_task: 完成glog的替换
+          day_task: 实现客户端心跳记录
+          day_finish: 完成链接的心跳记录
+          day_task: 思考如何测试整个程序
+          day_task: 目前打算在整个 wchat_server.cc 关键部分加入测试代码以便把握消息的走向以及各个数据在每个阶段的值
+          day_finish: 完成了客户端与服务端两边的协议
+          day_task: 根据协议的输入输出来测试整个服务端程序
+2019-03-10: goal：目前先搁置服务端程序的测试， 先完成一个客户端的底层实现之后在回归测试,目前这个客户端只是用于测试之用
+          day_task: 完成测试客户端的网络通讯部分

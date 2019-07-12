@@ -1,0 +1,28 @@
+目标： 这个客户端要能对服务端程序进行一次封闭的测试， 可以自动进行测试。
+
+1. 实现一个客户端类，它具有客户端的最基本功能---根据协议来发送和接受数据
+2. 实现一个线程池， 每个线程中有一个客户端类用来模拟一个客户端
+3. 基于这个线程池来实现一个控制消息发送的程序用于控制线程中的客户端来模拟一些情况，像加好友，创建群，加群之类
+
+a. 客户端类的实现
+    提供接口用于接受消息：       在类构造完之后或是之后进行初始化， 客户端类会收到来自于上面的的一个消息队列，
+                              该队列包含了该客户端寿命内所要发送的全部信息，要发送的消息是 struct fragment 
+                              类型的，可以对其进行封装控制消息的发送次数。
+                              struct fragment_wrapper {
+                                  int d_send_count = 5;     // 该消息会重复发送5次
+                                  struct fragment msg;
+                              };
+    底层的数据传输：            发送和接收数据按照普通的socket编程来进行。
+                                1. 初始化socket, connect 服务端程序
+                                2. 用第一步的服务端的 socket 来和服务端程序通信
+                                3. 判断
+    class client{
+        public: 
+            void send_msg(struct fragment&);
+            bool is_receive_msg(void);
+            void receive_msg(std::vector<struct fragment>&);
+        private:
+            void client_network_looping(void);
+        private:
+            bool d_receive_msg = false;
+    }; 
