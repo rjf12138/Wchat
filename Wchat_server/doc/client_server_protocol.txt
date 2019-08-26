@@ -1,5 +1,5 @@
 服务端处理的消息类型                                                            服务端返回给客户端的消息类型
-SEND_MSG_TO_FRIEND(用户发送消息给好友)                                          SEND_MSG_TO_FRIEND(只根据消息的接受者账号进行转发)
+SEND_MSG_TO_FRIEND(用户发送消息给好友)                                          	SEND_MSG_TO_FRIEND(只根据消息的接受者账号进行转发)
 SEND_MSG_TO_GROUP_MEMBERS(群里的用户向群中发送消息)                              SEND_MSG_TO_GROUP_MEMBERS(将消息发送给该群中的所有成员)
 REQUEST_JOIN_THE_GROUP(发送加群的请求)                                          REQUEST_JOIN_THE_GROUP(将消息发给该群的管理员)
 REQUEST_BE_FRIEND(发送加好友的请求)                                             REQUEST_BE_FRIEND(将消息发送给要加的好友)
