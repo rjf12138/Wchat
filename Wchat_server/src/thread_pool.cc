@@ -61,8 +61,13 @@ ThreadFunc::connect_manager_thread(void* args)
 void
 ThreadPool::start_thread(struct thread_arg& arg)
 {
-    void* (*thread_func[THREAD_NUM])(void*) = {ThreadFunc::msg_handler_thread, ThreadFunc::server_task_thread, ThreadFunc::send_msg_thread, 
-                                            ThreadFunc::msg_transmission_looping_thread, ThreadFunc::connect_manager_thread};
+    void* (*thread_func[THREAD_NUM])(void*) = {
+        ThreadFunc::msg_handler_thread, 
+        ThreadFunc::server_task_thread, 
+        ThreadFunc::send_msg_thread, 
+        ThreadFunc::msg_transmission_looping_thread, 
+        ThreadFunc::connect_manager_thread
+    };
 
     for (int i = 0; i < THREAD_NUM; ++i) {
         int th_errno = pthread_create(&thread_id[i], NULL, thread_func[i], (void*)&arg);

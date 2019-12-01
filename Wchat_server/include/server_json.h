@@ -12,11 +12,11 @@ class Json{
 public:
     static Json& get_json_instance(const std::string &json_path);
 
-    void read_value(const std::string &name , int &value);
-    void read_value(const std::string &name , double &value);
-    void read_value(const std::string &name , std::string &value);
-    void read_value(const std::string &name , bool &value);
-    void read_value(const std::string &name , short &value);
+    void read_value(const std::string &name, int &value);
+    void read_value(const std::string &name, double &value);
+    void read_value(const std::string &name, std::string &value);
+    void read_value(const std::string &name, bool &value);
+    void read_value(const std::string &name, short &value);
 
 private:
     Json() = default;
