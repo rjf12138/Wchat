@@ -55,3 +55,4 @@ task 文件编写格式（goal: 是要进行的工作短期， error： 是发�
 2019-12-01：
             goal: 完成基础网络的设计替换掉原来的libevent
             day_task: 给出了服务端网络部分和程序的大致结构
+            day_task: 完成了线程基类和互斥量基类,reactor类未完成

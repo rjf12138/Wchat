@@ -11,6 +11,7 @@
 #include <pthread.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/epoll.h>
 
 using namespace std;
 #endif
