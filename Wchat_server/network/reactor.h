@@ -11,15 +11,20 @@ public:
     Reactor(/*...未定参数*/);
     virtual ~Reactor(void);
 
-    virtual int init(void);
-    virtual int wait(void);
-    virtual int contrl(int fd, int op);
     virtual int handler(int fd);
-    virtual int stop(void);
+
+    int init(void);
+    int wait(void);
+    int add_fd(int fd);
+    int mod_fd(int fd);
+    int del_fd(int fd);
+    int stop(void);
 
 private:
+    int setnonblocking(int fd);
+private:
     int epoll_fd_;
-    struct epoll_event event_;
+    struct epoll_event event_[MAX_EVENT_NUM];
     bool exit_ = false;
 };
 
