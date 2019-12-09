@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <ctime>
+#include <map>
 
 #include <pthread.h>
 #include <unistd.h>
