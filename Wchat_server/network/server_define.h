@@ -1,0 +1,11 @@
+#ifndef __SERVER_DEFINE_H__
+#define __SERVER_DEFINE_H__
+
+enum EVENT_HANDLER {
+    TYPE_LISTEN_FD = 10000,
+    TYPE_NETWORK_FD = 10001,
+    TYPE_PIPE_FD = 10002,
+    TYPE_FILE_FD = 10003,
+};
+
+#endif
