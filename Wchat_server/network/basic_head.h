@@ -11,6 +11,7 @@
 #include <cstring>
 #include <ctime>
 #include <map>
+#include <memory>
 
 ////////////// linux system header file ////////////////
 

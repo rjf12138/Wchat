@@ -13,12 +13,9 @@
 /*
 *   消息体解析取决于具体的消息类
 */
-
-
 #include "basic_head.h"
 
-// 
-struct MessageBase {
+class MessageBase {
 public:
     MessageBase() {}
     virtual ~MessageBase() {}
@@ -38,5 +35,22 @@ private:
 // struct EchoMessage : public MessageBase {
 //     string msg_body;
 // };
+
+////////////////////// Inner Msg Struct //////////////////////////
+
+#include "inner_msg_object.h"
+
+struct InnerMsg {
+    int msg_id_;
+    OBJ_HANDLE handler_;
+    int param1_;
+    string str_;
+    shared_ptr<void> object_;
+
+    InnerMsg(int msg_id = 0, OBJ_HANDLE handler = 0, int param1 = 0, string str = "", void* object = nullptr):
+        msg_id_(msg_id), handler_(handler), param1_(param1), str_(str), object_(object)
+    {}
+};
+
 
 #endif
