@@ -15,19 +15,20 @@
 */
 #include "basic_head.h"
 
+#define MAX_MSG_LENGTH 1600
+
 class MessageBase {
 public:
     MessageBase() {}
     virtual ~MessageBase() {}
 
     int get_msg_type(void) const {return msg_type_;}
-
-private:
     // 基础的解包，主要为了获取消息类型，好生成对应的消息结构
     int get_msg_type_from_buffer(void);
 
-private:
+public:
     int msg_type_;
+    Buffer msg_buf_; // 保存一则字符串消息
 };
 
 // 为这个服务器定义各种需要处理的消息结构
@@ -44,13 +45,14 @@ struct InnerMsg {
     int msg_id_;
     OBJ_HANDLE handler_;
     int param1_;
+    int param2_;
     string str_;
     shared_ptr<void> object_;
 
-    InnerMsg(int msg_id = 0, OBJ_HANDLE handler = 0, int param1 = 0, string str = "", void* object = nullptr):
-        msg_id_(msg_id), handler_(handler), param1_(param1), str_(str), object_(object)
+    InnerMsg(int msg_id = 0, OBJ_HANDLE handler = 0, int param1 = 0, int param2 = 0, string str = "", void* object = nullptr):
+        msg_id_(msg_id), handler_(handler), param1_(param1), param2_(param2),str_(str), object_(object)
     {}
 };
 
-
+///////////////////////////// 自定义消息 ////////////////////////////
 #endif

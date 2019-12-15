@@ -8,4 +8,12 @@ enum EVENT_HANDLER {
     TYPE_FILE_FD = 10003,
 };
 
+enum REACTOR_MSG_ID {
+    MSG_ADD_FD = 11000,
+};
+
+enum MSG_HANDER_MSG_ID {
+    MSG_DATA_BUFFER = 11500,
+};
+
 #endif

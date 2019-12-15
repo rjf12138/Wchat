@@ -9,9 +9,27 @@ MSGObject::MSGObject(void)
     }
 
     object_id_ = next_object_id_++;
+    obj_map_[object_id_] = this;
+}
+
+MSGObject::~MSGObject(void)
+{
+    obj_map_.erase(object_id_);
 }
 
 int MSGObject::on_msg(InnerMsg msg)
 {
+    return 0;
+}
+
+int MSGObject::TransMsg(OBJ_HANDLE hander, const InnerMsg &msg)
+{
+    auto iter = obj_map_.find(hander);
+    if (iter == obj_map_.end()) {
+        return -1;
+    }
+
+    iter->second->on_msg(msg);
+
     return 0;
 }

@@ -58,3 +58,5 @@ task 文件编写格式（goal: 是要进行的工作短期， error： 是发�
             day_task: 完成了线程基类和互斥量基类,reactor类未完成
 2019-12-08:
             day_task: 完成 buffer 缓存消息的类， 接下去继续完成 reactor类
+2019-12-15:
+            思考消息的合成和解析

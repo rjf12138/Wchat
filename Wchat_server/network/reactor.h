@@ -7,27 +7,28 @@
 
 #define MAX_EVENT_NUM 512
 
-class Reactor : public Thread {
+class Reactor : public Thread ,public MSGObject{
 public:
-    Reactor(EventHandler &event_handler);
+    Reactor(OBJ_HANDLE msg_handler);
     virtual ~Reactor(void);
 
     int init(void);
-    int add_input_fd(int fd);
-    int add_output_fd(int fd);
+    int add_fd(int fd, bool is_listen_fd = false);
     int del_fd(int fd);
     int stop(void);
 
     virtual int run_handler() override;
     virtual int exit_handler() override;
+    virtual int handler_event(int fd);
 
 private:
     int setnonblocking(int fd);
 
 private:
     int epoll_fd_ = -1;
+    int listen_fd_ = -1;
+    OBJ_HANDLE msg_handler_;
     bool exit_ = false;
-    EventHandler &event_hander_;
     struct epoll_event event_[MAX_EVENT_NUM];
 };
 
