@@ -45,6 +45,9 @@ public:
     int write_string_lock(string str);
     int write_bytes_lock(const void *buf, int buf_size, bool match = false);
 
+    int8_t* get_buffer(void);
+    int get_start_pos(void) const {return start_read_pos_;}
+    int get_end_pos(void) const {return start_write_pos_;}
     bool empty(void) const;
     bool full(void) const;
     int data_size(void) const;

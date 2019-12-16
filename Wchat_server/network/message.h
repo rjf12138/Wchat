@@ -2,12 +2,12 @@
 #define __MESSAGE_H__
 
 /*
-*   消息的基本结构(头部)
-*   magic_num   (2个字节(用 @$， 其它地方要用到这两个字符需要进行替代))
-*   消息类型    (1个字节）
-*   消息体长度   (2个字节[取决于消息体的长度])
+*   消息的基本结构(头部总长度不应该超过1600字节，消息采用网络字节序)
+*   magic_num   (1个字节头(用 $， 其它地方要用到这两个字符需要进行替代))
+*   消息序号     （2个字节[单个消息体序号为0，多个组合消息，对这两个字节分为两部分，消息类型+消息编号]）
+*   消息体长度   (2个字节[取决于消息体的长度][头部长度+消息体长度+校验码])
 *   消息体      (未知)
-*   校验        (待定)
+*   校验        (2个字节)
 */
 
 /*
@@ -15,27 +15,39 @@
 */
 #include "basic_head.h"
 
-#define MAX_MSG_LENGTH 1600
+#define MAX_MSG_LENGTH      1600
+#define MSG_HEAD_START      '$'
+#define MSG_PARSR_ERROR     100
+#define MSG_INCOMPLETE      101
+#define MSG_COMPLETE        102
 
-class MessageBase {
+class Message {
 public:
-    MessageBase() {}
-    virtual ~MessageBase() {}
+    Message() {}
+    virtual ~Message() {}
 
-    int get_msg_type(void) const {return msg_type_;}
-    // 基础的解包，主要为了获取消息类型，好生成对应的消息结构
-    int get_msg_type_from_buffer(void);
+    int check_msg(void);
+    Buffer ret_msg_body(void); // 返回消息体
 
 public:
-    int msg_type_;
+    int16_t msg_num_; // 消息编号在这个类内生成
+    int16_t msg_len_;
     Buffer msg_buf_; // 保存一则字符串消息
+    Queue<Buffer> msg_body_queue_;  // 消息体队列
 };
 
-// 为这个服务器定义各种需要处理的消息结构
-// 例：
-// struct EchoMessage : public MessageBase {
-//     string msg_body;
-// };
+bool 
+Message::check_msg(void)    // 检查消息是否完成，或出错
+{
+    int start_pos = msg_buf_.get_start_pos();
+    int end_pos = msg_buf_.get_end_pos();
+    int8_t* buff = msg_buf_.get_buffer();
+
+    if (buff[start_pos] != MSG_HEAD_START) {
+        return MSG_PARSR_ERROR;
+    }
+
+}
 
 ////////////////////// Inner Msg Struct //////////////////////////
 

@@ -6,9 +6,16 @@ Buffer::Buffer(int max_buffer_size = 1024)
     buffer_.reserve(max_buffer_size_);
     this->clear();
 }
+
 Buffer::~Buffer()
 {
     this->clear();
+}
+
+int8_t*
+Buffer::get_buffer(void)
+{
+    return buffer_.data;
 }
 
 int Buffer::clear(void)

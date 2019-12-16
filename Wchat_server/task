@@ -60,3 +60,5 @@ task 文件编写格式（goal: 是要进行的工作短期， error： 是发�
             day_task: 完成 buffer 缓存消息的类， 接下去继续完成 reactor类
 2019-12-15:
             思考消息的合成和解析
+      goal: 消息体用json格式表示（原因：方便读写转化，传输时先压缩json）
+            下一步实现json的读写库
