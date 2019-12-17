@@ -45,9 +45,14 @@ public:
     int write_string_lock(string str);
     int write_bytes_lock(const void *buf, int buf_size, bool match = false);
 
+    // 拷贝从 start 起 size 个字节， start 是指从 start_read_pos_ 起的字节数
+    int copy_to_buffer(const Buffer buf, uint32_t start, uint32_t size);
+
     int8_t* get_buffer(void);
-    int get_start_pos(void) const {return start_read_pos_;}
-    int get_end_pos(void) const {return start_write_pos_;}
+    int get_start_pos(void) const ;
+    int get_next_pos(int curr_pos) const;
+    int get_prev_pos(int curr_pos) const;
+    int get_end_pos(void) const;
     bool empty(void) const;
     bool full(void) const;
     int data_size(void) const;

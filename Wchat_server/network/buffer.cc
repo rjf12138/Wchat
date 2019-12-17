@@ -25,6 +25,25 @@ int Buffer::clear(void)
     start_write_pos_ = 0;
 }
 
+int Buffer::get_start_pos(void) const 
+{
+    return start_read_pos_;
+}
+int Buffer::get_next_pos(int curr_pos) const
+{
+    return (curr_pos == start_write_pos_) ? start_write_pos_ : (curr_pos + 1) % max_buffer_size_;
+}
+
+int Buffer::get_prev_pos(int curr_pos) const
+{
+    return (curr_pos == start_read_pos_) ? start_read_pos_ : (curr_pos + max_buffer_size_ - 1) % max_buffer_size_;
+}
+
+int Buffer::get_end_pos(void) const 
+{
+    return start_write_pos_;
+}
+
 void Buffer::next_read_pos(int offset = 1)
 {
     start_read_pos_ = (start_read_pos_ + offset) % max_buffer_size_;
@@ -76,6 +95,22 @@ int Buffer::copy_data_to_buffer(const void *data, int size)
     }
 
     data_size_ += size; // 更新buff内的数据个数
+    return size;
+}
+
+int Buffer::copy_to_buffer(Buffer buf, uint32_t start, uint32_t size)
+{
+    if (size > this->data_size() - start) {
+        return ERROR_OUT_OF_RANGE;
+    }
+
+    int read_pos = start + buf.get_start_pos();
+    int8_t *data = buf.get_buffer();
+    for (int i = 0; i < size; ++i) {
+        this->write_int8(data[read_pos]);
+        read_pos = buf.get_next_pos(read_pos);
+    }
+
     return size;
 }
 

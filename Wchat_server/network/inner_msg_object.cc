@@ -22,7 +22,7 @@ int MSGObject::on_msg(InnerMsg msg)
     return 0;
 }
 
-int MSGObject::TransMsg(OBJ_HANDLE hander, const InnerMsg &msg)
+int MSGObject::trans_msg(OBJ_HANDLE hander, const InnerMsg &msg)
 {
     auto iter = obj_map_.find(hander);
     if (iter == obj_map_.end()) {

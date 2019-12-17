@@ -7,7 +7,6 @@
 *   消息序号     （2个字节[单个消息体序号为0，多个组合消息，对这两个字节分为两部分，消息类型+消息编号]）
 *   消息体长度   (2个字节[取决于消息体的长度][头部长度+消息体长度+校验码])
 *   消息体      (未知)
-*   校验        (2个字节)
 */
 
 /*
@@ -15,11 +14,10 @@
 */
 #include "basic_head.h"
 
-#define MAX_MSG_LENGTH      1600
-#define MSG_HEAD_START      '$'
-#define MSG_PARSR_ERROR     100
-#define MSG_INCOMPLETE      101
-#define MSG_COMPLETE        102
+#define MAX_MSG_LENGTH          1480
+#define MAX_MSG_BODY_LENGTH     1473 // 减去消息的7个包字节
+#define MSG_HEAD_START          '$'
+#define MSG_HEAD_LENS           5
 
 class Message {
 public:
@@ -28,15 +26,16 @@ public:
 
     int check_msg(void);
     Buffer ret_msg_body(void); // 返回消息体
+    int add_msg_data(Buffer &msg_data);
 
 public:
-    int16_t msg_num_; // 消息编号在这个类内生成
-    int16_t msg_len_;
+    uint16_t msg_num_; // 消息编号在这个类内生成
+    uint16_t msg_len_;
     Buffer msg_buf_; // 保存一则字符串消息
     Queue<Buffer> msg_body_queue_;  // 消息体队列
 };
 
-bool 
+int
 Message::check_msg(void)    // 检查消息是否完成，或出错
 {
     int start_pos = msg_buf_.get_start_pos();
@@ -44,10 +43,54 @@ Message::check_msg(void)    // 检查消息是否完成，或出错
     int8_t* buff = msg_buf_.get_buffer();
 
     if (buff[start_pos] != MSG_HEAD_START) {
-        return MSG_PARSR_ERROR;
+        return ERROR_PARSE_MESSAGE;
     }
 
+    if (msg_buf_.data_size() < MSG_HEAD_LENS) {
+        return MSG_INCOMPLETE;
+    }
+
+    int8_t double_bytes[2] = {0};
+    double_bytes[0] = buff[msg_buf_.get_next_pos(start_pos)];
+    double_bytes[1] = buff[msg_buf_.get_next_pos(start_pos+1)];
+    memcpy(&msg_num_, double_bytes, 2); 
+    msg_num_ = htons(msg_num_);
+
+    double_bytes[0] = buff[msg_buf_.get_next_pos(start_pos+2)];
+    double_bytes[1] = buff[msg_buf_.get_next_pos(start_pos+3)];
+    memcpy(&msg_len_, double_bytes, 2); 
+    msg_len_ = htons(msg_len_);
+
+    if (msg_len_ > MAX_MSG_LENGTH) {
+        return ERROR_PARSE_MESSAGE;
+    }
+
+    if (msg_buf_.data_size() < msg_len_) {
+        return MSG_INCOMPLETE;
+    }
+
+    Buffer tmp(MAX_MSG_LENGTH);
+    tmp.copy_to_buffer(msg_buf_, start_pos + 5, msg_len_);
+    msg_body_queue_.push(tmp);
+
+    return 0;
 }
+
+Buffer
+Message::ret_msg_body(void)
+{
+   Buffer ret;
+   msg_body_queue_.pop(ret);
+
+   return ret;
+}
+
+int 
+Message::add_msg_data(Buffer &msg_data)
+{
+    return msg_buf_.copy_to_buffer(msg_data, msg_data.get_start_pos(), msg_data.data_size());
+}
+
 
 ////////////////////// Inner Msg Struct //////////////////////////
 
