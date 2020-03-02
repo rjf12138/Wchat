@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/msg_buffer_test.dir/msg_buffer_test.cc.o  -o bin/msg_buffer_test -Wl,-rpath,/home/ruanjian/workspace/project/Wchat/Wchat_server/build/src/lib ../src/lib/libmsg_buffer.so ../src/lib/libqueue.so ../src/lib/libuser_manager.so ../src/lib/libsqlitewrapper.so ../src/lib/libserverlog.so ../src/lib/libserverjson.so -lsqlite3 -llog4cxx 

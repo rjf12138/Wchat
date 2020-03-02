@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/msg_fragment.h
+string
+-
+cstring
+-
+cstdio
+-
+
+../include/queue.h
+msg_fragment.h
+../include/msg_fragment.h
+server_json.h
+../include/server_json.h
+vector
+-
+queue
+-
+unistd.h
+-
+pthread.h
+-
+
+../include/server_json.h
+iostream
+-
+stdexcept
+-
+string
+-
+fstream
+-
+nlohmann/json.hpp
+-
+
+/home/ruanjian/workspace/project/Wchat/Wchat_server/src/queue.cc
+queue.h
+/home/ruanjian/workspace/project/Wchat/Wchat_server/src/queue.h
+

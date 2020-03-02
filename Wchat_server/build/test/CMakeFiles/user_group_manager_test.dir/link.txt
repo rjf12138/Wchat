@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/user_group_manager_test.dir/user_group_manager_test.cc.o  -o bin/user_group_manager_test -Wl,-rpath,/home/ruanjian/workspace/project/Wchat/Wchat_server/build/src/lib ../src/lib/libuser_manager.so ../src/lib/libgroup_manager.so ../src/lib/libsqlitewrapper.so ../src/lib/libserverlog.so ../src/lib/libserverjson.so -lsqlite3 -llog4cxx 

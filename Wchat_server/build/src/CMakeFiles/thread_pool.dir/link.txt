@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libthread_pool.so -o lib/libthread_pool.so CMakeFiles/thread_pool.dir/thread_pool.cc.o -llog4cxx -lpthread 

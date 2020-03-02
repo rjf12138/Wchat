@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../include/server_json.h
+iostream
+-
+stdexcept
+-
+string
+-
+fstream
+-
+nlohmann/json.hpp
+-
+
+/home/ruanjian/workspace/project/Wchat/Wchat_server/src/server_json.cc
+server_json.h
+/home/ruanjian/workspace/project/Wchat/Wchat_server/src/server_json.h
+

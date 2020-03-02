@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/client_test.dir/client_test.cc.o  -o bin/client_test -Wl,-rpath,/home/ruanjian/workspace/project/Wchat/Wchat_server/build/src/lib ../src/lib/libserverlog.so ../src/lib/libserverjson.so -lpthread ../src/lib/libserver_signal.so -llog4cxx 

@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libmsg_handler.so -o lib/libmsg_handler.so CMakeFiles/msg_handler.dir/msg_handler.cc.o -llog4cxx -lsqlite3 

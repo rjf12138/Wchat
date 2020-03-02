@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/print_database.dir/print_database.cc.o  -o bin/print_database -Wl,-rpath,/home/ruanjian/workspace/project/Wchat/Wchat_server/build/src/lib ../src/lib/libsqlitewrapper.so ../src/lib/libserverlog.so ../src/lib/libserverjson.so -lsqlite3 -llog4cxx 

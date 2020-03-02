@@ -20,6 +20,8 @@ int main()
     LOG_INFO("server-addr: %s",server_addr.c_str());
     LOG_INFO("ser_port: %d", ser_port);
     LOG_CONSOLE("print to console");
+    int64_t i = 2;
+    LOG_INFO("i = %lld", i);
 
     return 0;
 }

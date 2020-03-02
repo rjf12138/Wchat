@@ -1,0 +1,11 @@
+{
+    "server-addr": "127.0.0.1",
+    "server-port": 12138,
+    "server-queue-max-size": 100,
+    "user_database_file_path": "./user_database.db",
+    "max_friend_a_user_can_hold": 50,
+    "max_member_a_group_can_hold": 50,
+    "online_user_heartbeat_time": 100,
+    "check_heartbeat_time_gap": 10,
+    "account_json": "../../server_config/account.json"
+}

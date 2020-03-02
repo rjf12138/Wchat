@@ -1,0 +1,9 @@
+[2020-03-02 21:38:02,096][0x7efe3bb96540][ERROR][server_test.cc(18)]: log_error___
+[2020-03-02 21:38:02,097][0x7efe3bb96540][INFO ][server_test.cc(19)]: log_info___
+[2020-03-02 21:38:02,097][0x7efe3bb96540][INFO ][server_test.cc(20)]: server-addr: 127.0.0.1
+[2020-03-02 21:38:02,097][0x7efe3bb96540][INFO ][server_test.cc(21)]: ser_port: 12138
+[2020-03-02 21:39:23,154][0x7f2c68f99540][ERROR][server_test.cc(18)]: log_error___
+[2020-03-02 21:39:23,155][0x7f2c68f99540][INFO ][server_test.cc(19)]: log_info___
+[2020-03-02 21:39:23,155][0x7f2c68f99540][INFO ][server_test.cc(20)]: server-addr: 127.0.0.1
+[2020-03-02 21:39:23,155][0x7f2c68f99540][INFO ][server_test.cc(21)]: ser_port: 12138
+[2020-03-02 21:39:23,155][0x7f2c68f99540][INFO ][server_test.cc(24)]: i = 2

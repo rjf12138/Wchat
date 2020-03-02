@@ -1,0 +1,16 @@
+#设置日志level为INFO，file为文件输出对象，console为控制台输出对象
+log4j.rootLogger=INFO, file
+log4j.logger.file=INFO,file
+log4j.additivity.file=fasle
+
+#**************************
+#设置日志文件信息，比如大小，时间格式
+#**************************
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=./log/Wchat_Server.log
+log4j.appender.file.Append=fasle
+log4j.appender.file.MaxFileSize=10MB
+log4j.appender.file.MaxBackupIndex=10
+log4j.appender.file.DatePattern=yyyy-MM-dd
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=[%d][%t][%-5p]%m%n

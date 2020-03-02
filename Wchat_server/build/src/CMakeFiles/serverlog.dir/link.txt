@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libserverlog.so -o lib/libserverlog.so CMakeFiles/serverlog.dir/server_log.cc.o -llog4cxx 
